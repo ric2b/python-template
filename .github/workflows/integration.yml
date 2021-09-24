@@ -1,0 +1,56 @@
+name: Python Continuous Integration
+
+on: [ push ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      #----------------------------------------------
+      #       check-out repo and set-up python
+      #----------------------------------------------
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      #----------------------------------------------
+      #  -----  install & configure poetry  -----
+      #----------------------------------------------
+      - name: Load cached Poetry installation
+        id: cached-poetry-install
+        uses: actions/cache@v2
+        with:
+          path: ~/.local  # the path depends on the OS
+          key: poetry-${{ hashFiles('**/poetry.lock') }}-v0
+      - name: Install Poetry
+        if: steps.cached-poetry-install.outputs.cache-hit != 'true'
+        uses: snok/install-poetry@v1
+      - name: create venv
+        run: |
+          poetry env use python3
+          echo "venv_location=$(poetry env info -p)" >> $GITHUB_ENV
+      #----------------------------------------------
+      #       load cached venv if cache exists
+      #----------------------------------------------
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.venv_location }}
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}-v0
+      #----------------------------------------------
+      # install dependencies if cache does not exist
+      #----------------------------------------------
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+      #----------------------------------------------
+      #              run integration checks
+      #----------------------------------------------
+      - run: poetry run isort --check --diff .
+      - run: poetry run black --check --diff .
+      - run: poetry run flake8 .
+      - run: poetry run mypy .
+      - run: poetry run pytest --cov=python_template

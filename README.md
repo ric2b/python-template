@@ -16,3 +16,7 @@ Based on https://mitelman.engineering/blog/automating-python-best-practices-for-
 ### Updating tools
 
 Update pre-commit hooks: `poetry run pre-commit autoupdate`
+
+###
+
+GitHub actions based mostly on https://github.com/marketplace/actions/install-poetry-action#testing
