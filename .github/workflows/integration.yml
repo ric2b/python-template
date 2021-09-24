@@ -22,22 +22,22 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.local  # the path depends on the OS
-          key: poetry-${{ hashFiles('**/poetry.lock') }}-3
+          key: poetry-${{ hashFiles('**/poetry.lock') }}-v0
       - name: Install Poetry
         uses: snok/install-poetry@v1
       - name: create venv
-        run: poetry env use python3
+        run: |
+          poetry env use python3
+          echo "venv_location=$(poetry env info -p)" >> $GITHUB_ENV
       #----------------------------------------------
       #       load cached venv if cache exists
       #----------------------------------------------
-      - name: Save venv location
-        run: echo "venv_location=$(poetry env info -p)" >> $GITHUB_ENV
       - name: Load cached venv
         id: cached-poetry-dependencies
         uses: actions/cache@v2
         with:
           path: ${{ env.venv_location }}
-          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}-3
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}-v0
       #----------------------------------------------
       # install dependencies if cache does not exist
       #----------------------------------------------
