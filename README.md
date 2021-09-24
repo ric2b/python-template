@@ -9,4 +9,4 @@ Based on https://mitelman.engineering/blog/automating-python-best-practices-for-
 
 1. `poetry install`
 2. Change project name and author
-3. `poetry run pytest`
+3. `poetry run pytest --cov=python_template`
