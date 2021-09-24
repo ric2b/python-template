@@ -28,14 +28,14 @@ jobs:
       #----------------------------------------------
       #       load cached venv if cache exists
       #----------------------------------------------
-      - name: Save venv location
-        run: poetry env info -p
+#      - name: Save venv location
+#        run: poetry env info -p
 #        run: echo "venv_location=$(poetry env info -p)" >> $GITHUB_ENV
       - name: Load cached venv
         id: cached-poetry-dependencies
         uses: actions/cache@v2
         with:
-          path: ${{ env.venv_location }}
+          path: '{cache-dir}/virtualenvs'
           key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}-2
       #----------------------------------------------
       # install dependencies if cache does not exist
