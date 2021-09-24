@@ -19,11 +19,13 @@ jobs:
       #  -----  install & configure poetry  -----
       #----------------------------------------------
       - name: Load cached Poetry installation
+        id: cached-poetry-install
         uses: actions/cache@v2
         with:
           path: ~/.local  # the path depends on the OS
           key: poetry-${{ hashFiles('**/poetry.lock') }}-v0
       - name: Install Poetry
+        if: steps.cached-poetry-install.outputs.cache-hit != 'true'
         uses: snok/install-poetry@v1
       - name: create venv
         run: |
