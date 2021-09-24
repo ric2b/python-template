@@ -20,7 +20,9 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
 #      - run: poetry run isort .
-      - run: poetry run black .
+      - run:  |
+          source $VENV
+          black .
       - run: poetry run flake8 .
       - run: poetry run mypy .
       - run: poetry run pytest --cov=python_template
