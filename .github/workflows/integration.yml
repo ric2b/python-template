@@ -19,7 +19,7 @@ jobs:
           key: poetry-0  # increment to reset cache
       - name: Install Poetry
         uses: snok/install-poetry@v1
-      - run: poetry run isort .
+#      - run: poetry run isort .
       - run: poetry run black .
       - run: poetry run flake8 .
       - run: poetry run mypy .
