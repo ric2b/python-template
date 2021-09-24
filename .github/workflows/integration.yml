@@ -29,7 +29,8 @@ jobs:
       #       load cached venv if cache exists
       #----------------------------------------------
       - name: Save venv location
-        run: echo "venv_location=$(poetry env info -p)" >> $GITHUB_ENV
+        run: poetry env info -p
+#        run: echo "venv_location=$(poetry env info -p)" >> $GITHUB_ENV
       - name: Load cached venv
         id: cached-poetry-dependencies
         uses: actions/cache@v2
