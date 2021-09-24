@@ -45,7 +45,7 @@ jobs:
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
       #----------------------------------------------
-      #              run test suite
+      #              run integration checks
       #----------------------------------------------
       - run: poetry run isort .
       - run: poetry run black .
