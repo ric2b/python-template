@@ -8,5 +8,10 @@ Based on https://mitelman.engineering/blog/automating-python-best-practices-for-
 ### Setup
 
 1. `poetry install`
-2. Change project name and author
-3. `poetry run pytest --cov=python_template`
+2. `poetry run pre-commit install`
+3. Change project name and author
+4. `poetry run pytest --cov=python_template`
+
+### Updating tools
+
+Update pre-commit hooks: `poetry run pre-commit autoupdate`
