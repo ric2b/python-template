@@ -28,6 +28,8 @@ jobs:
       #----------------------------------------------
       #       load cached venv if cache exists
       #----------------------------------------------
+      - name: Debug env location
+        run: poetry env info -p
       - name: Load cached venv
         id: cached-poetry-dependencies
         uses: actions/cache@v2
